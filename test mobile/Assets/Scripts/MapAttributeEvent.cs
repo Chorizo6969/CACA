@@ -1,6 +1,7 @@
 using UnityEngine;
 using static NodeTypes;
 
+[RequireComponent(typeof(MapMaker2))]
 public class MapAttributeEvent : MonoBehaviour
 {
 
