@@ -5,16 +5,18 @@ using static NodeTypes;
 public class MapAttributeEvent : MonoBehaviour
 {
 
-    [SerializeField] public int _probaCuisine = 2;
+    [SerializeField] private int _probaCuisine = 2;
     [SerializeField] private int _probaIngredient = 2;
     [SerializeField] private int _probaCombat = 2;
 
+    #region Singleton
     public static MapAttributeEvent Instance;
 
     private void Awake()
     {
         Instance = this;
     }
+    #endregion
 
     public void MapMakingEvent()
     {
@@ -46,6 +48,9 @@ public class MapAttributeEvent : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Fonction qui va set les nodes pour leur attribué un event de case entre "Cuisine et Combat" 
+    /// </summary>
     public void MapMakingEventBeforeBoss()
     {
         if (MapMaker2.Instance._currentNode.Creator.EventName == NodesEventTypes.Cuisine) //Dans le cas ou une cuisine était juste avant
@@ -66,6 +71,14 @@ public class MapAttributeEvent : MonoBehaviour
             MapMaker2.Instance._currentNode.EventName = NodesEventTypes.Combat;
             return;
         }
+    }
+
+    /// <summary>
+    /// Set la probabilité d'avoir une cuisine à 0
+    /// </summary>
+    public void SetCuisineProbaToNull()
+    {
+        _probaCuisine = 0;
     }
 
     private int CalculProba(int Cuisine, int Ingredient, int Combat)

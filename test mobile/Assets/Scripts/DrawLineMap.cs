@@ -32,7 +32,7 @@ public class DrawLineMap : MonoBehaviour
     /// Fonction qui trace un trait entre le point A et B
     /// </summary>
     /// <param name="PointA">Point A (_fatherOfNode)</param>
-    /// <param name="PointB">Point B</param>
+    /// <param name="PointB">Point B (CurrentNode)</param>
     /// <param name="Drawing">Booléen qui permet de dessiner ou non</param>
     public void TraceTonTrait(Node PointA, Node PointB, bool Drawing)
     {

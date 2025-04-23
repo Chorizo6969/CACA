@@ -30,6 +30,9 @@ public class Node : MonoBehaviour
         OnMapCompleted -= SetupSprite;
     }
 
+    /// <summary>
+    /// Fonction qui peut setup un sprite pour le node selon son rôle
+    /// </summary>
     private void SetupSprite()
     {
         switch (EventName)
