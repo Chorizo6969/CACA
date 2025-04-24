@@ -11,6 +11,9 @@ public class SerializableNode
     public int hauteur;
     public NodesEventTypes eventName;
     public bool onYReviendra;
+
+    // MODIF: Ajout pour sauvegarder la référence au créateur
+    public Vector3Int creatorKey;
 }
 
 [Serializable]

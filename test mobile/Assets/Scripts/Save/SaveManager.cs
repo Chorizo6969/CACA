@@ -1,18 +1,17 @@
 using UnityEngine;
 using System.IO;
 using System.Collections.Generic;
-using System;
 
 public class SaveManager : MonoBehaviour
 {
     [SerializeField] private bool _encrypt;
-    [SerializeField] private string _keyEncrypt;
+    [SerializeField] private string _encryptKey;
 
     public void SaveMap(int id)
     {
         MapWrapper wrapper = new MapWrapper();
 
-        foreach (var kvp in MapMaker2.Instance._dicoNode)
+        foreach (var kvp in MapMakerTest352.Instance._dicoNode)
         {
             Node node = kvp.Value;
 
@@ -22,7 +21,10 @@ public class SaveManager : MonoBehaviour
                 position = node.Position,
                 hauteur = node.Hauteur,
                 eventName = node.EventName,
-                onYReviendra = node.OnYReviendra
+                onYReviendra = node.OnYReviendra,
+                
+                // Sauvegarde la clé du créateur (ou Vector3Int.zero si null)
+                creatorKey = node.Creator != null ? MapMakerTest352.Instance.GetKeyFromNode(node.Creator) : Vector3Int.zero
             };
 
             wrapper.items.Add(snode);
@@ -55,22 +57,51 @@ public class SaveManager : MonoBehaviour
             }
 
             MapWrapper wrapper = JsonUtility.FromJson<MapWrapper>(json);
-            MapMaker2.Instance._dicoNode.Clear();
+            MapMakerTest352.Instance._dicoNode.Clear();
+
+            Dictionary<Vector3Int, Node> tempDico = new();
 
             foreach (var item in wrapper.items)
             {
-                Node node = Instantiate(MapMaker2.Instance._nodePrefab, MapMaker2.Instance.transform);
+                Node node = Instantiate(MapMakerTest352.Instance._nodePrefab, MapMakerTest352.Instance.transform);
                 node.transform.localPosition = item.key;
                 node.Position = item.position;
                 node.Hauteur = item.hauteur;
                 node.EventName = item.eventName;
                 node.OnYReviendra = item.onYReviendra;
 
-                MapMaker2.Instance._dicoNode[item.key] = node;
+                tempDico[item.key] = node;
                 node.gameObject.SetActive(true);
             }
 
+            // Relie les créateurs une fois que tous les nodes sont instanciés
+            foreach (var item in wrapper.items)
+            {
+                if (tempDico.ContainsKey(item.key))
+                {
+                    Node node = tempDico[item.key];
+                    if (item.creatorKey != Vector3Int.zero && tempDico.ContainsKey(item.creatorKey))
+                    {
+                        node.Creator = tempDico[item.creatorKey];
+                    }
+                }
+            }
+
+            MapMakerTest352.Instance._dicoNode = tempDico;
             Node.TriggerMapCompleted(); // Redéclenche l'affichage des sprites
+
+            // Redessiner les traits entre les nodes
+            if (DrawLineMap.Instance != null)
+            {
+                DrawLineMap.Instance.FirstTimeDraw = true;
+                foreach (var node in tempDico.Values)
+                {
+                    if (node.Creator != null)
+                    {
+                        DrawLineMap.Instance.TraceTonTrait(node.Creator, node);
+                    }
+                }
+            }
         }
         else
         {
@@ -95,10 +126,9 @@ public class SaveManager : MonoBehaviour
 
         for (int i = 0; i < json.Length; i++)
         {
-            result += (char)(json[i] ^ _keyEncrypt[i % _keyEncrypt.Length]);
+            result += (char)(json[i] ^ _encryptKey[i % _encryptKey.Length]);
         }
 
         return result;
     }
-
 }
