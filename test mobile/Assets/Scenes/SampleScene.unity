@@ -1152,10 +1152,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _mapRange: 9
   _distanceSpawnX: 200
-  DistanceSpawnY: 0
+  _distanceSpawnY: 0
+  _firstNodePosition: -1045
   _probaIntersection: 3
   _nodePrefab: {fileID: 6205201638441464058, guid: 24afebadd62f89d418e8caf003e04363, type: 3}
-  _fatherOfNode: {fileID: 130355721}
+  _parentNode: {fileID: 130355721}
 --- !u!114 &1107725981
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1185,6 +1186,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _origineImage: {fileID: 1812905163}
   _parent: {fileID: 810487443}
+  FirstTimeDraw: 1
 --- !u!1 &1411923710
 GameObject:
   m_ObjectHideFlags: 0
@@ -1261,7 +1263,7 @@ Canvas:
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
-  m_VertexColorAlwaysGammaSpace: 0
+  m_VertexColorAlwaysGammaSpace: 1
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0

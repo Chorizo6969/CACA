@@ -9,6 +9,7 @@ public class DrawLineMap : MonoBehaviour
     [SerializeField] [Tooltip("Image qui sera dupliqué pour faire les chemins entre les nodes")] private Image _origineImage;
     [SerializeField][Tooltip("GameObject parent des chemins, si null alors c'est le porteur du script le parent")] private GameObject _parent;
     private List<Image> _trailList = new();
+    public bool FirstTimeDraw = true;
 
     #region Singleton
     public static DrawLineMap Instance;
@@ -32,11 +33,11 @@ public class DrawLineMap : MonoBehaviour
     /// Fonction qui trace un trait entre le point A et B
     /// </summary>
     /// <param name="PointA">Point A (_fatherOfNode)</param>
-    /// <param name="PointB">Point B</param>
+    /// <param name="PointB">Point B (CurrentNode)</param>
     /// <param name="Drawing">Booléen qui permet de dessiner ou non</param>
-    public void TraceTonTrait(Node PointA, Node PointB, bool Drawing)
+    public void TraceTonTrait(Node PointA, Node PointB)
     {
-        if (Drawing)
+        if (FirstTimeDraw)
         {
             // Sprite entre father et current
             Image CurrentTrail = _trailList[0];
@@ -51,6 +52,10 @@ public class DrawLineMap : MonoBehaviour
             Vector3 dir = PointB.transform.localPosition - PointA.transform.localPosition;
             float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
             CurrentTrail.transform.rotation = Quaternion.Euler(0, 0, angle);
+        }
+        else
+        {
+            FirstTimeDraw = true;
         }
     }
 }
