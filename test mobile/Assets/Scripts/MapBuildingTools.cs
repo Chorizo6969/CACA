@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 [RequireComponent(typeof(MapMaker2))]
-public class DrawLineMap : MonoBehaviour
+public class MapBuildingTools : MonoBehaviour
 {
     [SerializeField] [Tooltip("Image qui sera dupliqué pour faire les chemins entre les nodes")] private Image _origineImage;
     [SerializeField][Tooltip("GameObject parent des chemins, si null alors c'est le porteur du script le parent")] private GameObject _parent;
@@ -12,7 +12,7 @@ public class DrawLineMap : MonoBehaviour
     public bool FirstTimeDraw = true;
 
     #region Singleton
-    public static DrawLineMap Instance;
+    public static MapBuildingTools Instance;
     private void Awake()
     {
         Instance = this;
@@ -20,7 +20,7 @@ public class DrawLineMap : MonoBehaviour
         {
             _parent = gameObject;
         }
-        for (int i = 0; i <= 39; i++)
+        for (int i = 0; i <= 50; i++)
         {
             Image NewNode = Instantiate(_origineImage, _parent.transform);
             NewNode.gameObject.SetActive(false);
@@ -57,5 +57,23 @@ public class DrawLineMap : MonoBehaviour
         {
             FirstTimeDraw = true;
         }
+    }
+
+    public bool Intersection(int mapRangeCurrentIndex, int probaIntersection)
+    {
+        if (mapRangeCurrentIndex >= 4)
+        {
+            int result = Random.Range(1, 11);
+            if (result <= probaIntersection) //Intersection si true
+            {
+                return true;
+            }
+            return false;
+        }
+        else
+        {
+            return false;
+        }
+
     }
 }
