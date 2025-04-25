@@ -9,6 +9,7 @@ public class NodeTypes
         Combat,
         Ingredient,
         Boss,
-        Start
+        Start,
+        Heal
     }
 }

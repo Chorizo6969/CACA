@@ -20,6 +20,11 @@ public class Node : MonoBehaviour
         OnMapCompleted?.Invoke();
     }
 
+    public void InteractPlayer()
+    {
+        PlayerMap.Instance.SetupTarget(gameObject.transform.position);
+    }
+
     private void OnEnable()
     {
         OnMapCompleted += SetupSprite;
@@ -46,11 +51,14 @@ public class Node : MonoBehaviour
             case NodesEventTypes.Ingredient:
                 _componentImageRef.sprite = _listOfSprite[2];
                 break;
-            case NodesEventTypes.Boss:
+            case NodesEventTypes.Heal:
                 _componentImageRef.sprite = _listOfSprite[3];
                 break;
-            case NodesEventTypes.Start:
+            case NodesEventTypes.Boss:
                 _componentImageRef.sprite = _listOfSprite[4];
+                break;
+            case NodesEventTypes.Start:
+                _componentImageRef.sprite = _listOfSprite[5];
                 break;
         }
     }

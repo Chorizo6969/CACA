@@ -8,6 +8,7 @@ public class MapAttributeEvent : MonoBehaviour
     [SerializeField] private int _probaCuisine = 2;
     [SerializeField] private int _probaIngredient = 2;
     [SerializeField] private int _probaCombat = 2;
+    [SerializeField] private int _probaHeal = 2;
 
     #region Singleton
     public static MapAttributeEvent Instance;
@@ -20,7 +21,7 @@ public class MapAttributeEvent : MonoBehaviour
 
     public void MapMakingEvent()
     {
-        int result = CalculProba(_probaCuisine, _probaIngredient, _probaCombat);
+        int result = CalculProba(_probaCuisine, _probaIngredient, _probaCombat, _probaHeal);
 
         if (result <= _probaCuisine)
         {
@@ -28,19 +29,30 @@ public class MapAttributeEvent : MonoBehaviour
             _probaCuisine = 0;
             _probaCombat += 1;
             _probaIngredient += 1;
+            _probaHeal += 1;
             return;
         }
-        if (result <= _probaCombat + _probaCuisine)
+        else if (result <= _probaCombat + _probaCuisine)
         {
             MapMaker2.Instance._currentNode.EventName = NodesEventTypes.Combat;
             _probaCuisine += 1;
             _probaCombat = 2;
             _probaIngredient += 1;
+            _probaHeal += 1;
             return;
+        }
+        else if (result <= _probaIngredient + _probaCombat + _probaCuisine)
+        {
+            MapMaker2.Instance._currentNode.EventName = NodesEventTypes.Ingredient;
+            _probaCuisine += 1;
+            _probaCombat += 1;
+            _probaIngredient = 2;
+            _probaHeal += 1;
         }
         else
         {
-            MapMaker2.Instance._currentNode.EventName = NodesEventTypes.Ingredient;
+            MapMaker2.Instance._currentNode.EventName = NodesEventTypes.Heal;
+            _probaHeal = 2;
             _probaCuisine += 1;
             _probaCombat += 1;
             _probaIngredient = 2;
@@ -59,7 +71,7 @@ public class MapAttributeEvent : MonoBehaviour
             return;
         }
 
-        int result = CalculProba(_probaCuisine, 0, _probaCombat);
+        int result = CalculProba(_probaCuisine, 0, 0, _probaHeal);
 
         if (result <= _probaCuisine)
         {
@@ -68,7 +80,7 @@ public class MapAttributeEvent : MonoBehaviour
         }
         else
         {
-            MapMaker2.Instance._currentNode.EventName = NodesEventTypes.Combat;
+            MapMaker2.Instance._currentNode.EventName = NodesEventTypes.Heal;
             return;
         }
     }
@@ -81,9 +93,9 @@ public class MapAttributeEvent : MonoBehaviour
         _probaCuisine = 0;
     }
 
-    private int CalculProba(int Cuisine, int Ingredient, int Combat)
+    private int CalculProba(int Cuisine, int Ingredient, int Combat, int Heal)
     {
-        int Total = Cuisine + Ingredient + Combat;
+        int Total = Cuisine + Ingredient + Combat + Heal;
         int result = Random.Range(1, Total + 1);
         return result;
     }
