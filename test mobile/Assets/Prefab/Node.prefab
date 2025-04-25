@@ -120,7 +120,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 6565546934930250902}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 6205201638441464058}
+        m_TargetAssemblyTypeName: Node, Assembly-CSharp
+        m_MethodName: InteractPlayer
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &6205201638441464058
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -134,12 +146,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Position: 0
+  Hauteur: 0
   Creator: {fileID: 0}
   EventName: 0
+  OnYReviendra: 0
   _componentImageRef: {fileID: 6565546934930250902}
   _listOfSprite:
   - {fileID: 21300000, guid: 0272d29ca518ff44b873cff67671f914, type: 3}
   - {fileID: 21300000, guid: b258de89ff227934b8d41af66bbda5aa, type: 3}
   - {fileID: 21300000, guid: 29b73741e214d294d9d79995ff04cfff, type: 3}
+  - {fileID: 21300000, guid: e3c6fd9b4fce84641a8efad2c294ecf0, type: 3}
   - {fileID: 21300000, guid: f9459f8ae6c07c840b523842c8f0e361, type: 3}
   - {fileID: 21300000, guid: d5bbbbd9d0c927e41b953619a2cf53e2, type: 3}
