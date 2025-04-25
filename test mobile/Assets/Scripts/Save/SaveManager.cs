@@ -4,10 +4,27 @@ using System.Collections.Generic;
 
 public class SaveManager : MonoBehaviour
 {
-    [SerializeField] private bool _encrypt;
-    [SerializeField] private string _encryptKey;
+    public bool Encrypt;
+    public byte SaveID;
+    const string _encryptKey = "Tr0mp1ne7te";
 
-    public void SaveMap(int id)
+    #region Singleton
+    public static SaveManager Instance;
+
+    private void Awake()
+    {
+        if (Instance != null)
+        {
+            Destroy(this.gameObject);
+            return;
+        }
+
+        Instance = this;
+        DontDestroyOnLoad(this.gameObject);
+    }
+    #endregion
+
+    public void SaveMap()
     {
         MapWrapper wrapper = new MapWrapper();
 
@@ -22,6 +39,8 @@ public class SaveManager : MonoBehaviour
                 hauteur = node.Hauteur,
                 eventName = node.EventName,
                 onYReviendra = node.OnYReviendra,
+                playerPosition = Vector3Int.RoundToInt(PlayerOnMap.Instance.transform.localPosition),
+
                 
                 // Sauvegarde la clé du créateur (ou Vector3Int.zero si null)
                 creatorKey = node.Creator != null ? MapMakerTest352.Instance.GetKeyFromNode(node.Creator) : Vector3Int.zero
@@ -31,8 +50,8 @@ public class SaveManager : MonoBehaviour
         }
 
         string json = JsonUtility.ToJson(wrapper, true);
-        string path = Application.persistentDataPath + $"/MapSave{id}.json";
-        if (_encrypt)
+        string path = Application.persistentDataPath + $"/MapSave{SaveID}.json";
+        if (Encrypt)
         {
             string encryptedJson = EncryptDecrypt(json);
             File.WriteAllText(path, encryptedJson);
@@ -45,13 +64,13 @@ public class SaveManager : MonoBehaviour
         Debug.Log("Carte sauvegardée à : " + path);
     }
 
-    public void LoadMap(int id)
+    public void LoadMap()
     {
-        string path = Application.persistentDataPath + $"/MapSave{id}.json";
+        string path = Application.persistentDataPath + $"/MapSave{SaveID}.json";
         if (File.Exists(path))
         {
             string json = File.ReadAllText(path);
-            if (_encrypt)
+            if (Encrypt)
             {
                 json = EncryptDecrypt(json);
             }
@@ -106,21 +125,21 @@ public class SaveManager : MonoBehaviour
         else
         {
             Debug.LogWarning("Fichier introuvable. Génération d’une nouvelle carte !");
-            SaveMap(id);
+            SaveMap();
         }
     }
 
-    public void DeleteMap(int id)
+    public void DeleteMap()
     {
-        string path = Application.persistentDataPath + $"/MapSave{id}.json";
+        string path = Application.persistentDataPath + $"/MapSave{SaveID}.json";
         if (File.Exists(path))
         {
             File.Delete(path);
-            Debug.Log("Carte supprim?e ? : " + path);
+            Debug.Log("Carte supprimée ? : " + path);
         }
     }
 
-    private string EncryptDecrypt(string json)
+    public string EncryptDecrypt(string json)
     {
         string result = "";
 

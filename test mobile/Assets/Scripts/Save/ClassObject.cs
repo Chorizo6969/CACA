@@ -12,8 +12,10 @@ public class SerializableNode
     public NodesEventTypes eventName;
     public bool onYReviendra;
 
-    // MODIF: Ajout pour sauvegarder la référence au créateur
+    //référence au créateur
     public Vector3Int creatorKey;
+
+    public Vector3Int playerPosition;
 }
 
 [Serializable]
