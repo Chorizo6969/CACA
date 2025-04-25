@@ -56,7 +56,7 @@ public class MapMakerTest352 : MonoBehaviour
             _currentHeight = node.Hauteur;
             _parentNode = node;
             _probaIntersection = 0;
-            DrawLineMap.Instance.FirstTimeDraw = false;
+            MapBuildingTools.Instance.FirstTimeDraw = false;
             MapMaking(node.Position);
         }
         Node.TriggerMapCompleted();
@@ -156,12 +156,12 @@ public class MapMakerTest352 : MonoBehaviour
             Node existingValue = _dicoNode[newPosition];
             print("Un node est déja présent ici" + existingValue);
             Destroy(_currentNode.gameObject);
-            DrawLineMap.Instance.TraceTonTrait(_parentNode, existingValue);
+            MapBuildingTools.Instance.TraceTonTrait(_parentNode, existingValue);
         }
         else
         {
             _dicoNode.Add(newPosition, _currentNode);
-            DrawLineMap.Instance.TraceTonTrait(_parentNode, _currentNode);
+            MapBuildingTools.Instance.TraceTonTrait(_parentNode, _currentNode);
             _currentNode.Creator = _parentNode;
             _currentNode.Hauteur = _currentHeight;
             _currentNode.Position = tourboucle;
