@@ -8,6 +8,12 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/SampleScene.unity
     guid: 99c9720ab356a0642a771bea13969a05
+  - enabled: 1
+    path: Assets/Scenes/TestAmbre.unity
+    guid: 2dc5b0bc53fcaa24d925a69ffc49c095
+  - enabled: 1
+    path: Assets/Scenes/Test254.unity
+    guid: 91c84305faf0d2e4e8d37517204a8798
   m_configObjects:
     com.unity.adaptiveperformance.google.android.provider_settings: {fileID: 11400000, guid: 1bdef2992837ece449f0ecccc7a9b4da, type: 2}
     com.unity.adaptiveperformance.loader_settings: {fileID: 11400000, guid: d053f87fd501c5047bc280171c2908a1, type: 2}

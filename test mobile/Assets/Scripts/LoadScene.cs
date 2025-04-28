@@ -4,6 +4,11 @@ using UnityEngine.SceneManagement;
 
 public class LoadScene : MonoBehaviour
 {
+    [SerializeField] private GameObject _panelLoading;
+    [SerializeField] private GameObject _logo;
+    [SerializeField] private Animator _animator;
+    private bool _loading;
+
     #region Singleton
     public static LoadScene Instance;
 
@@ -20,20 +25,27 @@ public class LoadScene : MonoBehaviour
     }
     #endregion
 
-    public void Scene(string sceneName)
+    public IEnumerator SceneLoadingOn(string sceneName)
     {
-        StartCoroutine(SceneLoading(sceneName));
+        _panelLoading.SetActive(true);
+        yield return new WaitForSeconds(1);
+        _logo.SetActive(true);
+        _animator.SetBool("Activate", true);
+        yield return new WaitForSeconds(0.1f);
+
+        SceneManager.LoadSceneAsync(sceneName);
+        _loading = true;
+        StartCoroutine(SceneLoadingOff());
     }
 
-    IEnumerator SceneLoading(string sceneName)
+    public IEnumerator SceneLoadingOff()
     {
-        AsyncOperation chargement = SceneManager.LoadSceneAsync(sceneName);
+        if (!_loading) yield return null;
 
-        while (!chargement.isDone)
-        {
-            float progression = Mathf.Clamp01(chargement.progress / 0.9f);
-            Debug.Log("Progression : " + (progression * 100f) + "%");
-            yield return null;
-        }
+        yield return new WaitForSeconds(4.9f);
+        _logo.SetActive(false);
+        _animator.SetBool("Activate", false);
+        yield return new WaitForSeconds(1);
+        _panelLoading.SetActive(false);
     }
 }
