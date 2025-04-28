@@ -155,7 +155,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -1892, y: 0}
+  m_AnchoredPosition: {x: -2250, y: 0}
   m_SizeDelta: {x: 90, y: 90}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &130355719
@@ -257,8 +257,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 211, y: 66, z: 50}
-  m_Center: {x: 4.5, y: 8, z: 0}
+  m_Size: {x: 372, y: 66, z: 50}
+  m_Center: {x: 65, y: 8, z: 0}
 --- !u!4 &158269841
 Transform:
   m_ObjectHideFlags: 0
@@ -470,7 +470,7 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 60.000004
+  field of view: 35
   orthographic: 0
   orthographic size: 5
   m_Depth: -1
@@ -497,7 +497,7 @@ Transform:
   m_GameObject: {fileID: 330585543}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -86.43277, y: -0.08553359, z: 20}
+  m_LocalPosition: {x: -121, y: -0.046710968, z: 20}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -812,7 +812,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -1892, y: 0}
+  m_AnchoredPosition: {x: -2250, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &488000052
@@ -1143,7 +1143,7 @@ MonoBehaviour:
     LookAtTarget: {fileID: 0}
     CustomLookAtTarget: 0
   Lens:
-    FieldOfView: 60.000004
+    FieldOfView: 35
     OrthographicSize: 5
     NearClipPlane: 0.3
     FarClipPlane: 1000
@@ -1171,7 +1171,7 @@ Transform:
   m_GameObject: {fileID: 1022178967}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -86.43277, y: -0.08553359, z: 20}
+  m_LocalPosition: {x: -126.70892, y: -0.046711054, z: 20}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1364,10 +1364,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _mapRange: 15
-  _distanceSpawnX: 200
-  _distanceSpawnY: 0
-  _firstNodePosition: -1892
-  _probaIntersection: 7
+  _distanceSpawnX: 300
+  _distanceSpawnY: 200
+  _firstNodePosition: -2250
+  _probaIntersection: 100
+  _probaToutDroitCroisement: 5
   <_nodePrefab>k__BackingField: {fileID: 6205201638441464058, guid: 24afebadd62f89d418e8caf003e04363, type: 3}
   _parentNode: {fileID: 130355721}
 --- !u!114 &1107725981
@@ -1500,8 +1501,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 53.5, y: 0}
-  m_SizeDelta: {x: 4590, y: 1080}
+  m_AnchoredPosition: {x: 65.5, y: 0}
+  m_SizeDelta: {x: 4830, y: 1080}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1812905161
 GameObject:

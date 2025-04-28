@@ -2,6 +2,7 @@ using NUnit.Framework.Interfaces;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using static NodeTypes;
 
 [RequireComponent(typeof(MapMaker2))]
 public class MapBuildingTools : MonoBehaviour
@@ -75,5 +76,35 @@ public class MapBuildingTools : MonoBehaviour
             return false;
         }
 
+    }
+
+    public void AttributeEvent(int _mapRange)
+    {
+        if (MapMaker2.Instance._currentNode.Position + 1 == _mapRange) { MapAttributeEvent.Instance.MapMakingEventBeforeBoss(); }
+        else if (MapMaker2.Instance._currentNode.Position == _mapRange) { MapMaker2.Instance._currentNode.EventName = NodesEventTypes.Boss; }
+        else { MapAttributeEvent.Instance.MapMakingEvent(); }
+        switch (MapMaker2.Instance._currentNode.Position)
+        {
+            case 1:
+                MapMaker2.Instance._currentNode.EventName = NodesEventTypes.Ingredient;
+                break;
+            case 2:
+                MapMaker2.Instance._currentNode.EventName = NodesEventTypes.Cuisine;
+                MapAttributeEvent.Instance.SetCuisineProbaToNull();
+                break;
+            case 3:
+                MapMaker2.Instance._currentNode.EventName = NodesEventTypes.Combat;
+                break;
+        }
+    }
+
+    public Vector3Int GetKeyFromNode(Node node)
+    {
+        foreach (var kvp in MapMaker2.Instance._dicoNode)
+        {
+            if (kvp.Value == node)
+                return kvp.Key;
+        }
+        return Vector3Int.zero; // par défaut si pas trouvé
     }
 }
