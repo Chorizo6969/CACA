@@ -28,7 +28,7 @@ public class SaveManager : MonoBehaviour
     {
         MapWrapper wrapper = new MapWrapper();
 
-        foreach (var kvp in MapMakerTest352.Instance._dicoNode)
+        foreach (var kvp in MapMaker2.Instance._dicoNode)
         {
             Node node = kvp.Value;
 
@@ -43,7 +43,7 @@ public class SaveManager : MonoBehaviour
 
                 
                 // Sauvegarde la clé du créateur (ou Vector3Int.zero si null)
-                creatorKey = node.Creator != null ? MapMakerTest352.Instance.GetKeyFromNode(node.Creator) : Vector3Int.zero
+                creatorKey = node.Creator != null ? MapMaker2.Instance.GetKeyFromNode(node.Creator) : Vector3Int.zero
             };
 
             wrapper.items.Add(snode);
@@ -76,13 +76,13 @@ public class SaveManager : MonoBehaviour
             }
 
             MapWrapper wrapper = JsonUtility.FromJson<MapWrapper>(json);
-            MapMakerTest352.Instance._dicoNode.Clear();
+            MapMaker2.Instance._dicoNode.Clear();
 
             Dictionary<Vector3Int, Node> tempDico = new();
 
             foreach (var item in wrapper.items)
             {
-                Node node = Instantiate(MapMakerTest352.Instance._nodePrefab, MapMakerTest352.Instance.transform);
+                Node node = Instantiate(MapMaker2.Instance._nodePrefab, MapMaker2.Instance.transform);
                 node.transform.localPosition = item.key;
                 node.Position = item.position;
                 node.Hauteur = item.hauteur;
@@ -106,18 +106,18 @@ public class SaveManager : MonoBehaviour
                 }
             }
 
-            MapMakerTest352.Instance._dicoNode = tempDico;
+            MapMaker2.Instance._dicoNode = tempDico;
             Node.TriggerMapCompleted(); // Redéclenche l'affichage des sprites
 
             // Redessiner les traits entre les nodes
-            if (DrawLineMap.Instance != null)
+            if (MapBuildingTools.Instance != null)
             {
-                DrawLineMap.Instance.FirstTimeDraw = true;
+                MapBuildingTools.Instance.FirstTimeDraw = true;
                 foreach (var node in tempDico.Values)
                 {
                     if (node.Creator != null)
                     {
-                        DrawLineMap.Instance.TraceTonTrait(node.Creator, node);
+                        MapBuildingTools.Instance.TraceTonTrait(node.Creator, node);
                     }
                 }
             }

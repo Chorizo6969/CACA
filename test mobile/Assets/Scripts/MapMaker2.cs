@@ -22,7 +22,7 @@ public class MapMaker2 : MonoBehaviour
     [SerializeField][Tooltip("Probabiltité à chaque node d'avoir une intersection (0 = impossible)")][Range(0, 10)] private int _probaIntersection = 3;
 
     [Header("Other ne pas toucher sauf code")]
-    [SerializeField] private Node _nodePrefab;
+    [field: SerializeField] public Node _nodePrefab { get; private set; }
     [SerializeField] private Node _parentNode;
     public Node _currentNode { get; private set; }
 
@@ -31,7 +31,7 @@ public class MapMaker2 : MonoBehaviour
     /// </summary>
     private Queue<Node> _nodeList = new();
     public List<Node> _intersection { get; private set; } = new();  //Liste des nodes qui vont devoir continuer à crée un chemin à partir d'eux
-    public Dictionary<Vector3Int, Node> _dicoNode { get; private set; } = new(); //ToDo :Faire en sorte qu'il soit privé sauf pour la save.
+    public Dictionary<Vector3Int, Node> _dicoNode { get; set; } = new(); //ToDo :Faire en sorte qu'il soit privé sauf pour la save.
     private int _currentHeight = 3;
     private Node _existingValue;
     #endregion
@@ -226,4 +226,13 @@ public class MapMaker2 : MonoBehaviour
         }
     }
 
+    public Vector3Int GetKeyFromNode(Node node)
+    {
+        foreach (var kvp in _dicoNode)
+        {
+            if (kvp.Value == node)
+                return kvp.Key;
+        }
+        return Vector3Int.zero; // par défaut si pas trouvé
+    }
 }
