@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using UnityEditor;
 using UnityEngine;
 using static NodeTypes;
 
@@ -14,16 +13,16 @@ public class MapMaker2 : MonoBehaviour
     public static MapMaker2 Instance;
 
     [Header("Map Adjusting")]
-    [SerializeField][Range(4, 15)][Tooltip("Le nombre de node minimum entre le Node de départ et le boss")] private int _mapRange;
+    [SerializeField][Range(4, 15)][Tooltip("Le nombre de node minimum entre le Node de départ et le boss")] public int _mapRange;
     [SerializeField][Tooltip("Distance à laquelle le node va spawn sur l'axe X")] private int _distanceSpawnX = 200;
     [SerializeField][Tooltip("Distance à laquelle le node va spawn sur l'axe Y")] private int _distanceSpawnY = 0;
-    private int _distanceSpawnYModifiable = 0;
     [SerializeField][Tooltip("Position en X à laquelle le 1er Node spawn (Le mieux : -1045)")] private int _firstNodePosition = -1045;
 
     [Header("Probality")]
     [SerializeField][Tooltip("Probabiltité à chaque node d'avoir une intersection (0 = impossible)")][Range(0, 100)] private int _probaIntersection = 3;
     [SerializeField][Tooltip("Probabiltité d'avoir un tout droit lors d'un croisement")][Range(0, 100)] private int _probaToutDroitCroisement = 5;
 
+    private int _distanceSpawnYModifiable = 0;
     private int _probaIntersectionModifiable;
     private int _toutdroit = 3;
 
@@ -40,7 +39,6 @@ public class MapMaker2 : MonoBehaviour
     public Dictionary<Vector3Int, Node> _dicoNode { get; set; } = new(); //ToDo :Faire en sorte qu'il soit privé sauf pour la save.
     private int _currentHeight = 3;
     private Node _existingValue;
-
     #endregion
     private void Awake()
     {
@@ -247,5 +245,6 @@ public class MapMaker2 : MonoBehaviour
                 _parentNode = _currentNode;
             }
         }
+        MapBuildingTools.Instance.AttributeEvent(_mapRange);
     }
 }
