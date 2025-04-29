@@ -1025,6 +1025,7 @@ GameObject:
   m_Component:
   - component: {fileID: 631544469}
   - component: {fileID: 631544468}
+  - component: {fileID: 631544470}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -1059,6 +1060,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &631544470
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 631544466}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d11da3c266b2e754495a57a53879dd98, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Encrypt: 1
+  SaveID: 0
 --- !u!1 &808828922
 GameObject:
   m_ObjectHideFlags: 0
@@ -1659,9 +1674,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _mapRange: 15
   _distanceSpawnX: 200
-  _distanceSpawnY: 0
+  _distanceSpawnY: 200
   _firstNodePosition: -1892
-  _probaIntersection: 7
+  _probaIntersection: 100
+  _probaToutDroitCroisement: 0
   <_nodePrefab>k__BackingField: {fileID: 6205201638441464058, guid: 24afebadd62f89d418e8caf003e04363, type: 3}
   _parentNode: {fileID: 130355721}
 --- !u!114 &1107725981
@@ -1880,7 +1896,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 631544470}
         m_TargetAssemblyTypeName: SaveManager, Assembly-CSharp
         m_MethodName: SaveMap
         m_Mode: 1

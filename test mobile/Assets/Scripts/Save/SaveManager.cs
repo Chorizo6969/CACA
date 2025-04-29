@@ -2,11 +2,14 @@ using UnityEngine;
 using System.IO;
 using System.Collections.Generic;
 
+/// <summary>
+/// Script qui gère la sauvegarde la map
+/// </summary>
 public class SaveManager : MonoBehaviour
 {
-    public bool Encrypt;
-    public byte SaveID;
-    const string _encryptKey = "Tr0mp1ne7te";
+    [Tooltip("Sauvegarde crypter ou non")] public bool Encrypt;
+    [Tooltip("Numéro de fichier de sauvegarde")] public byte SaveID;
+    const string ENCRYPT_KEY = "Tr0mp1ne7te";
 
     #region Singleton
     public static SaveManager Instance;
@@ -26,24 +29,23 @@ public class SaveManager : MonoBehaviour
 
     public void SaveMap()
     {
-        MapWrapper wrapper = new MapWrapper();
+        MapWrapper wrapper = new();
 
         foreach (var kvp in MapMaker2.Instance._dicoNode)
         {
             Node node = kvp.Value;
 
-            SerializableNode snode = new SerializableNode
+            SerializableNode snode = new()
             {
                 key = kvp.Key,
                 position = node.Position,
                 hauteur = node.Hauteur,
                 eventName = node.EventName,
                 onYReviendra = node.OnYReviendra,
-                playerPosition = Vector3Int.RoundToInt(PlayerOnMap.Instance.transform.localPosition),
+                playerPosition = Vector3Int.RoundToInt(PlayerMap.Instance.transform.localPosition),
 
-                
                 // Sauvegarde la clé du créateur (ou Vector3Int.zero si null)
-                creatorKey = node.Creator != null ? MapMaker2.Instance.GetKeyFromNode(node.Creator) : Vector3Int.zero
+                creatorKey = node.Creator != null ? MapBuildingTools.Instance.GetKeyFromNode(node.Creator) : Vector3Int.zero
             };
 
             wrapper.items.Add(snode);
@@ -51,6 +53,7 @@ public class SaveManager : MonoBehaviour
 
         string json = JsonUtility.ToJson(wrapper, true);
         string path = Application.persistentDataPath + $"/MapSave{SaveID}.json";
+
         if (Encrypt)
         {
             string encryptedJson = EncryptDecrypt(json);
@@ -60,13 +63,12 @@ public class SaveManager : MonoBehaviour
         {
             File.WriteAllText(path, json);
         }
-
-        Debug.Log("Carte sauvegardée à : " + path);
     }
 
     public void LoadMap()
     {
         string path = Application.persistentDataPath + $"/MapSave{SaveID}.json";
+
         if (File.Exists(path))
         {
             string json = File.ReadAllText(path);
@@ -124,7 +126,6 @@ public class SaveManager : MonoBehaviour
         }
         else
         {
-            Debug.LogWarning("Fichier introuvable. Génération d’une nouvelle carte !");
             SaveMap();
         }
     }
@@ -135,7 +136,6 @@ public class SaveManager : MonoBehaviour
         if (File.Exists(path))
         {
             File.Delete(path);
-            Debug.Log("Carte supprimée ? : " + path);
         }
     }
 
@@ -145,7 +145,7 @@ public class SaveManager : MonoBehaviour
 
         for (int i = 0; i < json.Length; i++)
         {
-            result += (char)(json[i] ^ _encryptKey[i % _encryptKey.Length]);
+            result += (char)(json[i] ^ ENCRYPT_KEY[i % ENCRYPT_KEY.Length]);
         }
 
         return result;
