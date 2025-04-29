@@ -1,4 +1,3 @@
-using NUnit.Framework.Interfaces;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -81,7 +80,7 @@ public class MapBuildingTools : MonoBehaviour
     public void AttributeEvent(int _mapRange)
     {
         if (MapMaker2.Instance._currentNode.Position + 1 == _mapRange) { MapAttributeEvent.Instance.MapMakingEventBeforeBoss(); }
-        else if (MapMaker2.Instance._currentNode.Position == _mapRange) { MapMaker2.Instance._currentNode.EventName = NodesEventTypes.Boss; }
+        if (MapMaker2.Instance._currentNode.Position == _mapRange) { MapMaker2.Instance._currentNode.EventName = NodesEventTypes.Boss; }
         else { MapAttributeEvent.Instance.MapMakingEvent(); }
         switch (MapMaker2.Instance._currentNode.Position)
         {

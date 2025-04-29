@@ -1284,6 +1284,7 @@ GameObject:
   - component: {fileID: 1107725981}
   - component: {fileID: 1107725980}
   - component: {fileID: 1107725982}
+  - component: {fileID: 1107725983}
   m_Layer: 5
   m_Name: Carte
   m_TagString: Untagged
@@ -1368,7 +1369,7 @@ MonoBehaviour:
   _distanceSpawnY: 200
   _firstNodePosition: -2250
   _probaIntersection: 100
-  _probaToutDroitCroisement: 5
+  _probaToutDroitCroisement: 50
   <_nodePrefab>k__BackingField: {fileID: 6205201638441464058, guid: 24afebadd62f89d418e8caf003e04363, type: 3}
   _parentNode: {fileID: 130355721}
 --- !u!114 &1107725981
@@ -1383,10 +1384,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d6f11771da63ab44d87f82b78476c366, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _probaCuisine: 2
-  _probaIngredient: 2
-  _probaCombat: 2
-  _probaHeal: 2
 --- !u!114 &1107725982
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1402,6 +1399,22 @@ MonoBehaviour:
   _origineImage: {fileID: 1812905163}
   _parent: {fileID: 810487443}
   FirstTimeDraw: 1
+--- !u!114 &1107725983
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1107725976}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ca4e7d248b2a2c459cc00021ece972a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _probaCuisine: 6
+  _probaIngredient: 10
+  _probaCombat: 78
+  _probaHeal: 6
 --- !u!1 &1411923710
 GameObject:
   m_ObjectHideFlags: 0
